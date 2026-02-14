@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Treasure for Booboo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+        body { 
+            margin: 0; padding: 0; background: #fff0f3; 
+            font-family: 'Playfair Display', serif; 
+            overflow-x: hidden; color: #5d0220; 
+        }
+
+        .bg-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
+        }
+
+        .section { 
+            display: none; flex-direction: column; align-items: center; 
+            justify-content: center; min-height: 100vh; text-align: center; 
+            padding: 40px 20px; box-sizing: border-box; 
+        }
+
+        .card { 
+            background: rgba(255, 255, 255, 0.96); 
+            padding: 40px; border-radius: 40px; 
+            box-shadow: 0 25px 60px rgba(0,0,0,0.18); 
+            max-width: 650px; width: 95%;
+            z-index: 10;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        h1, h2 { font-family: 'Dancing Script', cursive; color: #d63384; font-size: 45px; margin-bottom: 20px; }
+        h3 { font-family: 'Dancing Script', cursive; color: #ff4d6d; font-size: 32px; }
+        p { font-size: 20px; line-height: 1.9; margin-bottom: 25px; text-align: left; }
+
+        .btn { 
+            background: #ff4d6d; color: white; border: none; 
+            padding: 16px 40px; font-size: 19px; border-radius: 50px; 
+            cursor: pointer; font-weight: bold; transition: 0.3s; 
+            margin: 15px auto; 
+            display: block;
+            width: fit-content;
+            min-width: 200px;
+        }
+        .btn:hover { background: #ff758f; transform: scale(1.05); }
+
+        /* Smaller buttons for the proposal page specifically */
+        .btn-small { min-width: 120px; padding: 12px 30px; font-size: 16px; margin: 10px; display: inline-block; }
+
+        .teddy-box { height: 140px; display: flex; justify-content: center; align-items: center; margin-bottom: 15px; }
+        .teddy-gif { height: 130px; display: none; border-radius: 20px; }
+
+        .story-block { margin-bottom: 60px; padding-bottom: 30px; border-bottom: 1px solid #ffafbd; }
+        .polaroid { 
+            background: white; padding: 15px 15px 40px 15px; 
+            border: 1px solid #eee; box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+            margin: 25px auto; width: fit-content;
+        }
+        .polaroid img { width: 100%; max-width: 350px; border-radius: 4px; }
+
+        .rain-heart { position: fixed; top: -10%; font-size: 35px; z-index: 9999; pointer-events: none; animation: fall 3s linear forwards; }
+        @keyframes fall { to { transform: translateY(110vh); } }
+
+        #no-button { position: absolute; transition: 0.1s; }
+.text-center { 
+    text-align: center !important; 
+}
+
+/* Make sure headers stay centered globally */
+h1, h2, h3 { 
+    text-align: center; 
+    width: 100%;
+}
+
+    </style>
+</head>
+<body>
+
+<div class="bg-overlay" id="heart-bg"></div>
+<audio id="bgMusic" loop><source src="music.mp3" type="audio/mpeg"></audio>
+
+<div id="cover-page" class="section" style="display: flex;">
+    <div class="card">
+        <div class="heart-container"><div class="big-heart"></div></div>
+        <h1>To my Booboo... ❤️</h1>
+        <p class="text-center">I wanted to give you a small present for this Valentine's Day.</p>
+        <button class="btn" onclick="showIntro()">Open this Treasure 🔑</button>
+    </div>
+</div>
+
+<div id="intro-page" class="section">
+    <div class="card">
+        <h2>Hold on, Booboo! ✋❤️</h2>
+        <p class="text-center">A treasure, this special! can't just be handed over. To unlock the memories waiting for you, you must first prove that our connection is as strong as I know it is..</p>
+         <p class="text-center"><b>How well do you really know me, Booboo?</b></p>
+        <button class="btn" onclick="startQuiz()">I'm Ready to Prove It 🥰</button>
+    </div>
+</div>
+
+<div id="quiz-page" class="section">
+    <div class="card">
+    <h2>The Challenge 🧐</h2>
+        <div class="teddy-box">
+            <img id="happy-teddy" src="happy.gif" class="teddy-gif">
+            <img id="sad-teddy" src="sad.gif" class="teddy-gif">
+        </div>
+        <p id="question-text" style="font-weight: bold; font-size: 22px; text-align: center;"></p>
+        <div id="options-container"></div>
+        <p id="feedback" style="font-size: 19px; font-style: italic; text-align: center; margin-top: 10px;"></p>
+    </div>
+</div>
+
+<div id="story-page" class="section">
+    <div class="card">
+        <h2>Our Beautiful Journey ✨</h2>
+        
+        <div class="story-block">
+            <h3>Chapter 1: The Unexpected Beginning</h3>
+            <p>It all started with a simple biodata exchange by our parents. I’ll be honest, I had so many doubts. I was all the way in Germany, and I didn't think any guy would truly understand or accept the distance. But life has a way of surprising you. From the moment we started, you turned my world upside down in the best way possible! 😂</p>
+        </div>
+
+        <div class="story-block">
+            <h3>Chapter 2: The First Spark</h3>
+            <div class="polaroid"><img src="whatsapp.jpeg"></div>
+            <p>I still remember that very first text on my phone: <b>'Hi, I am Mahesh.'</b> I was at work, couldn't reply you early, had to continue our conversation the next day . But then came the day were the air changed. where we truly started to connect, heart to heart.
+             We had our first video call. It was supposed to be a quick chat, but it turned out to be more than <b>4 hours</b> of pure magic. We didn't even realize how time flew! We said 'Yes' so quickly after that. It was spontaneous, it was crazy, and it was the start of our long-distance journey filled with late-night whispers and virtual kisses.💋</p>
+        </div>
+
+        <div class="story-block">
+            <h3>Chapter 3: The Airport Proposal</h3>
+            <div class="polaroid"><img src="Proposal.jpg"></div>
+            <p>Then came the day I finally saw you at the airport. I was so nervous my heart was racing! Even with the tragedy of me losing my phone, you made everything disappear when you gave me those roses and that ring. Our 'Forever' began right there in that terminal. 💍</p>
+        </div>
+
+        <div class="story-block">
+            <h3>Chapter 4: Simple Joys</h3>
+            <div class="polaroid"><img src="kadle.jpg"></div>
+            <p>I cherish the simple days we spent together. Walking through the crowds at <b>Banashankari Kadlekai Parishe</b>, sitting down for a simple plate of Gobi Manchurian, or just laughing over ice cream. Having our sweet romances at our home. Going to gym ,shopping...etc, you spending the time with me in my home: sitting on same couch hugging me tightly and watching movies and many sweet dates has happened. Being physically near you was the greatest gift.</p>
+        </div>
+
+        <div class="story-block">
+            <h3>Chapter 5: A Promise Made</h3>
+            <div class="polaroid"><img src="engagement.jpg"></div>
+            <p><b>December 7th.</b> Our Engagement. Between the rush of family gathering we still had the quiet, romantic moments we stole on the stage, it felt like a dream. </p>
+        </div>
+
+        <div class="story-block">
+            <h3>Chapter 6: The Warmth of Your Love</h3>
+            <div class="polaroid"><img src="Kiss.jpg"></div>
+            <p>Celebrating Christmas and New Year with our family made me realize that I don't just love you—I love our life together.Those shared kisses and the warmth of your embrace during the holidays... they are the memories I keep deeply in my heart. Even now, being back in Germany, I can still feel that warmth whenever I think of you. 💋</p>
+        </div>
+
+        <div class="story-block">
+            <h3>Chapter 7: Sunsets & Sunrises</h3>
+            <div class="polaroid"><img src="sunset.jpg"></div>
+            <p>Nothing compares to the peace I felt watching the <b>sunset and sunrise</b> with you. In those moments, the world stood still. There was no distance, no work, no worries—just you and me, together, exactly where we belong. 🌅</p>
+        </div>
+
+        <div class="story-block" style="border-bottom: none;">
+            <h3>The Final Countdown</h3>
+            <div class="polaroid"><img src="Us.jpg"></div>
+            <p>Being back in Germany is hard,Baby. The distance feels heavy, but my heart is light because I know I’m coming home soon. I am counting down every single second until I can be in your arms again.</p>
+            <h3 id="timer" style="text-align: center;"></h3>
+            <button class="btn" onclick="showProposal()">Click for the Finale ❤️</button>
+        </div>
+    </div>
+</div>
+
+<div id="proposal-page" class="section">
+    <div class="card" style="position: relative; min-height: 450px;">
+        <h2>The Most Important Question...</h2>
+        <img src="flower.gif" style="width: 180px; margin: 20px 0;">
+        <h3>Will you be my Valentine forever, Booboo? 🌹</h3>
+        <div style="margin-top: 30px;">
+            <button id="yes-button" class="btn btn-small" onclick="finalCelebrate()">YES!</button>
+            <button id="no-button" class="btn btn-small" onmouseover="moveNo()" onclick="moveNo()">No</button>
+        </div>
+    </div>
+</div>
+
+<div id="finale-page" class="section">
+    <div class="card">
+        <h1>I LOVE YOU TO THE MOON AND BACK! ❤️</h1>
+        <p style="text-align: center;">From August 18th to the rest of our lives. <br><b>can't wait to see you on March 27th!</b> ✈️</p>
+    </div>
+</div>
+
+<script>
+    let currentQ = 0;
+    const questions = [
+        { q: "When did we first text each other?", a: ["Aug 15th", "Aug 18th", "Aug 20th"], correct: 1 },
+        { q: "What was the top color i wore when we first met?", a: ["light yellow", "cream", "light pink"], correct: 0 },
+        { q: "My favorite music band?", a: ["One Direction", "BTS", "Blackpink"], correct: 1 },
+        { q: "My ultimate food craving?", a: ["Pizza", "Chicken Biryani", "Burger"], correct: 1 }, 
+        { q: "what flavoured ice cream i do like?", a: ["Pista", "vanilla", "chocolate"], correct: 2 }
+    ];
+
+    function showIntro() {
+        document.getElementById('bgMusic').play().catch(() => {});
+        document.getElementById('cover-page').style.display = 'none';
+        document.getElementById('intro-page').style.display = 'flex';
+    }
+
+    function startQuiz() {
+        document.getElementById('intro-page').style.display = 'none';
+        document.getElementById('quiz-page').style.display = 'flex';
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        document.getElementById('happy-teddy').style.display = 'none';
+        document.getElementById('sad-teddy').style.display = 'none';
+        document.getElementById('feedback').innerText = "";
+
+        let q = questions[currentQ];
+        document.getElementById('question-text').innerText = q.q;
+        let container = document.getElementById('options-container');
+        container.innerHTML = "";
+
+        q.a.forEach((opt, i) => {
+            let b = document.createElement("button");
+            b.className = "btn";
+            b.innerText = opt;
+            b.onclick = () => {
+                if(i === q.correct) {
+                    document.getElementById('sad-teddy').style.display = 'none';
+                    document.getElementById('happy-teddy').style.display = 'block';
+                    document.getElementById('feedback').innerText = "You know me so well! 🥰";
+                    setTimeout(() => {
+                        currentQ++;
+                        if (currentQ < questions.length) loadQuestion();
+                        else { 
+                            document.getElementById('quiz-page').style.display = 'none'; 
+                            document.getElementById('story-page').style.display = 'flex'; 
+                        }
+                    }, 1500);
+                } else {
+                    document.getElementById('happy-teddy').style.display = 'none';
+                    document.getElementById('sad-teddy').style.display = 'block';
+                    document.getElementById('feedback').innerText = "Wrong answer! Try again, Booboo 🥺";
+                }
+            };
+            container.appendChild(b);
+        });
+    }
+
+    function showProposal() {
+        document.getElementById('story-page').style.display = 'none';
+        document.getElementById('proposal-page').style.display = 'flex';
+    }
+
+    function finalCelebrate() {
+        document.getElementById('proposal-page').style.display = 'none';
+        document.getElementById('finale-page').style.display = 'flex';
+        for (let i = 0; i < 100; i++) {
+            setTimeout(() => {
+                const heart = document.createElement('div');
+                heart.className = 'rain-heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 3000);
+            }, i * 50);
+        }
+        setTimeout(() => { document.getElementById('bgMusic').pause(); }, 10000); 
+    }
+
+    function moveNo() {
+        const btn = document.getElementById('no-button');
+        const x = Math.random() * 70;
+        const y = Math.random() * 70;
+        btn.style.left = x + "%";
+        btn.style.top = y + "%";
+    }
+
+    const target = new Date("March 27, 2026 00:00:00").getTime();
+    setInterval(() => {
+        const diff = target - new Date().getTime();
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const timer = document.getElementById("timer");
+        if(timer) timer.innerHTML = d + " Days until i see you again ❤️";
+    }, 1000);
+</script>
+</body>
+</html>
